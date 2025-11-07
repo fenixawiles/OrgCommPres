@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>UTSA × UT Health | Impact Dashboard</title>
+  <meta name="description" content="Interactive dashboard for the broader impact of the UTSA × UT Health San Antonio merger." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    :root{
+      --bg:#0f1220;
+      --panel:#161a2e;
+      --panel-2:#1b2040;
+      --ink:#e9ecff;
+      --ink-dim:#b7bce0;
+      --ink-muted:#8b90b8;
+      --accent:#7aa2ff;
+      --accent-2:#56f1d8;
+      --ring: 0 0 0 3px rgba(122,162,255,.25);
+      --radius:18px;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,Apple Color Emoji,Segoe UI Emoji;
+      line-height:1.6;
+      background: radial-gradient(1200px 600px at 20% -10%, #263268 0%, transparent 60%),
+                  radial-gradient(1000px 600px at 120% 0%, #1b2040 0%, transparent 50%),
+                  var(--bg);
+      color:var(--ink);
+    }
+    header{
+      position:sticky; top:0; z-index:50; backdrop-filter:saturate(1.2) blur(8px);
+      background:linear-gradient(180deg, rgba(15,18,32,.8), rgba(15,18,32,.5) 40%, transparent);
+      border-bottom:1px solid rgba(255,255,255,.06);
+    }
+    .wrap{ max-width:1200px; margin:0 auto; padding:24px }
+    .title{ display:flex; align-items:center; gap:12px }
+    .logo{ width:40px; height:40px; border-radius:10px; background:linear-gradient(135deg, var(--accent), var(--accent-2)); box-shadow:var(--shadow) }
+    h1{ font-size:22px; margin:0; letter-spacing:.2px }
+    .subtitle{ color:var(--ink-muted); font-size:14px; margin-top:6px }
+
+    .toolbar{ display:grid; grid-template-columns: 1fr auto auto auto; gap:14px; margin-top:18px }
+    .search{ position:relative }
+    .search input{
+      width:100%; padding:12px 40px 12px 14px; background:var(--panel); border:1px solid rgba(255,255,255,.08);
+      border-radius:12px; color:var(--ink)
+    }
+    .search svg{ position:absolute; right:12px; top:50%; transform:translateY(-50%); opacity:.6 }
+    .btn{ padding:10px 14px; background:var(--panel); border:1px solid rgba(255,255,255,.08); color:var(--ink);
+          border-radius:12px; cursor:pointer; transition:.15s ease; display:inline-flex; align-items:center; gap:8px }
+    .btn:hover{ transform:translateY(-1px); box-shadow:var(--shadow) }
+    .btn[aria-pressed="true"]{ outline:var(--ring); }
+
+    .tabs{ display:flex; gap:10px; flex-wrap:wrap; margin-top:20px }
+    .tab{ padding:10px 12px; background:var(--panel); border:1px solid rgba(255,255,255,.08); border-radius:999px; cursor:pointer; font-weight:600; font-size:13px; color:var(--ink-dim) }
+    .tab.active{ background:linear-gradient(135deg, rgba(122,162,255,.2), rgba(86,241,216,.18)); color:var(--ink) }
+
+    .grid{ display:grid; grid-template-columns: repeat(12, 1fr); gap:20px; margin-top:20px }
+    .card{ grid-column: span 12; background:linear-gradient(180deg, var(--panel-2), var(--panel)); border:1px solid rgba(255,255,255,.08); border-radius:var(--radius); padding:20px; box-shadow:var(--shadow) }
+    @media (min-width: 860px){ .card.span-4{ grid-column: span 4 } .card.span-8{ grid-column: span 8 } }
+
+    .kpis{ display:grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap:14px }
+    .kpi{ padding:14px; border-radius:14px; background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.07) }
+    .kpi h3{ margin:0 0 4px 0; font-size:12px; color:var(--ink-muted); font-weight:600 }
+    .kpi .val{ font-size:22px; font-weight:800; letter-spacing:.3px }
+    .tag{ display:inline-block; font-size:11px; padding:4px 8px; border-radius:999px; background:rgba(122,162,255,.12); color:var(--accent) }
+
+    .list{ display:grid; gap:14px; margin-top:10px }
+    .item{ padding:12px; border-radius:12px; background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.07); display:grid; gap:6px }
+    .item .meta{ display:flex; gap:8px; align-items:center; color:var(--ink-muted); font-size:12px }
+
+    .footer{ color:var(--ink-muted); font-size:12px; text-align:center; padding:30px 0 60px }
+    .progress{ height:6px; width:100%; background:rgba(255,255,255,.08); border-radius:999px; overflow:hidden }
+    .bar{ height:100%; width:0%; background:linear-gradient(90deg, var(--accent), var(--accent-2)) }
+
+    .focus .dim{ opacity:.2; filter:blur(1px) }
+    .focus .active-section{ outline:var(--ring); }
+
+    .small{ font-size:12px; color:var(--ink-muted) }
+    .pill{ display:inline-flex; align-items:center; gap:6px; padding:6px 10px; border-radius:999px; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.08); font-size:12px }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <div class="title">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          <h1>UTSA × UT Health San Antonio • Impact Dashboard</h1>
+          <div class="subtitle">Interactive, public‑facing site for a 20‑minute class presentation. Use tabs to follow speakers in real time.</div>
+        </div>
+      </div>
+      <div class="toolbar" role="region" aria-label="tools">
+        <div class="search">
+          <input id="q" type="search" placeholder="Search findings, notes, sources" aria-label="Search" />
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M21 21l-4.35-4.35" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/></svg>
+        </div>
+        <button id="presenter" class="btn" aria-pressed="false" title="Toggle Presenter Mode">Presenter</button>
+        <button id="print" class="btn" title="Print or save to PDF">Print</button>
+        <button id="export" class="btn" title="Copy speaking notes">Copy Notes</button>
+      </div>
+      <div class="tabs" role="tablist" aria-label="Impact Sections">
+        <button class="tab active" role="tab" aria-selected="true" data-tag="student">Student Impact</button>
+        <button class="tab" role="tab" aria-selected="false" data-tag="faculty">Faculty Impact</button>
+        <button class="tab" role="tab" aria-selected="false" data-tag="city">City Impact</button>
+        <button class="tab" role="tab" aria-selected="false" data-tag="state">State Impact</button>
+        <button class="tab" role="tab" aria-selected="false" data-tag="economic">Economic Impact</button>
+      </div>
+      <div class="progress" aria-hidden="true"><div class="bar" id="bar"></div></div>
+    </div>
+  </header>
+
+  <main class="wrap" id="app">
+    <!-- Cards grid -->
+    <section class="grid" id="section-grid">
+      <article class="card span-8 active-section" id="card-summary">
+        <div style="display:flex; justify-content:space-between; align-items:center; gap:12px">
+          <h2 style="margin:0">Section Overview</h2>
+          <span class="pill"><span id="pill-tag">Student Impact</span></span>
+        </div>
+        <p id="section-summary" class="small">Add a concise, 2–3 sentence summary for this section. Keep it specific to the selected impact domain.</p>
+        <canvas id="chart" height="120" aria-label="Section chart" role="img"></canvas>
+      </article>
+
+      <article class="card span-4" id="card-kpis">
+        <h3 style="margin-top:0">Signals</h3>
+        <div class="kpis" id="kpis"></div>
+        <p class="small">Edit the KPI data in <code>DATA.kpis</code> below. Values can be counts, deltas, or targets.</p>
+      </article>
+
+      <article class="card span-12" id="card-findings">
+        <h3 style="margin-top:0">Findings</h3>
+        <div class="list" id="findings"></div>
+      </article>
+
+      <article class="card span-12" id="card-notes">
+        <h3 style="margin-top:0">Speaking Notes</h3>
+        <div id="notes" class="list"></div>
+      </article>
+
+      <article class="card span-12" id="card-sources">
+        <h3 style="margin-top:0">Sources</h3>
+        <div id="sources" class="list"></div>
+        <p class="small">Paste URLs with a short label. Everything is client‑side, so this works on GitHub Pages.</p>
+      </article>
+    </section>
+  </main>
+
+  <footer class="footer">
+    Built with plain HTML, CSS, and JavaScript. Ready for GitHub Pages. Edit the DATA object in this file to update content.
+  </footer>
+
+  <script>
+    /* =====================================================================
+       CONTENT MODEL — Update this object with your team’s inputs. 
+       Each section key controls the whole page when its tab is active.
+       No build step. Client‑side only. Good for GitHub Pages.
+    ====================================================================== */
+    const DATA = {
+      student: {
+        summary: "TODO: Student Impact summary (2–3 sentences).",
+        kpis: [
+          { label: "TODO KPI label", value: "TODO value" }
+        ],
+        findings: [
+          { title: "TODO finding title", text: "Describe the insight in 1–2 sentences with a clear mechanism."}
+        ],
+        chart: { labels: ["A","B","C","D"], data: [0,0,0,0] },
+        notes: [
+          "TODO speaking note #1",
+          "TODO speaking note #2"
+        ],
+        sources: [
+          { label: "TODO source label", url: "https://example.com" }
+        ]
+      },
+      faculty: {
+        summary: "TODO: Faculty Impact summary (2–3 sentences).",
+        kpis: [ { label: "TODO KPI label", value: "TODO value" } ],
+        findings: [ { title: "TODO finding title", text: "1–2 sentence explanation." } ],
+        chart: { labels: ["A","B","C","D"], data: [0,0,0,0] },
+        notes: [ "TODO speaking note #1" ],
+        sources: [ { label: "TODO source label", url: "https://example.com" } ]
+      },
+      city: {
+        summary: "TODO: City Impact summary (2–3 sentences).",
+        kpis: [ { label: "TODO KPI label", value: "TODO value" } ],
+        findings: [ { title: "TODO finding title", text: "1–2 sentence explanation." } ],
+        chart: { labels: ["A","B","C","D"], data: [0,0,0,0] },
+        notes: [ "TODO speaking note #1" ],
+        sources: [ { label: "TODO source label", url: "https://example.com" } ]
+      },
+      state: {
+        summary: "TODO: State Impact summary (2–3 sentences).",
+        kpis: [ { label: "TODO KPI label", value: "TODO value" } ],
+        findings: [ { title: "TODO finding title", text: "1–2 sentence explanation." } ],
+        chart: { labels: ["A","B","C","D"], data: [0,0,0,0] },
+        notes: [ "TODO speaking note #1" ],
+        sources: [ { label: "TODO source label", url: "https://example.com" } ]
+      },
+      economic: {
+        summary: "TODO: Economic Impact summary (2–3 sentences).",
+        kpis: [ { label: "TODO KPI label", value: "TODO value" } ],
+        findings: [ { title: "TODO finding title", text: "1–2 sentence explanation." } ],
+        chart: { labels: ["A","B","C","D"], data: [0,0,0,0] },
+        notes: [ "TODO speaking note #1" ],
+        sources: [ { label: "TODO source label", url: "https://example.com" } ]
+      }
+    };
+
+    /* =============================================================
+       UI STATE
+    ============================================================== */
+    const tabs = Array.from(document.querySelectorAll('.tab'));
+    const bar = document.getElementById('bar');
+    const pill = document.getElementById('pill-tag');
+    const summary = document.getElementById('section-summary');
+    const kpisNode = document.getElementById('kpis');
+    const findingsNode = document.getElementById('findings');
+    const notesNode = document.getElementById('notes');
+    const sourcesNode = document.getElementById('sources');
+    const chartCanvas = document.getElementById('chart');
+    const presenterBtn = document.getElementById('presenter');
+    const printBtn = document.getElementById('print');
+    const exportBtn = document.getElementById('export');
+    const searchBox = document.getElementById('q');
+
+    let active = 'student';
+    let chart;
+
+    function setActive(tag){
+      active = tag;
+      for(const b of tabs){
+        const on = b.dataset.tag === tag;
+        b.classList.toggle('active', on);
+        b.setAttribute('aria-selected', on);
+      }
+      const order = ['student','faculty','city','state','economic'];
+      const idx = order.indexOf(tag);
+      bar.style.width = ((idx+1)/order.length*100) + '%';
+
+      const d = DATA[tag];
+      pill.textContent = bCase(tag) + ' Impact';
+      summary.textContent = d.summary;
+
+      // KPIs
+      kpisNode.innerHTML = '';
+      d.kpis.forEach(k => {
+        const el = document.createElement('div');
+        el.className = 'kpi';
+        el.innerHTML = `<h3>${k.label}</h3><div class="val">${k.value}</div>`;
+        kpisNode.appendChild(el);
+      });
+
+      // Findings
+      findingsNode.innerHTML = '';
+      const q = searchBox.value.trim().toLowerCase();
+      const sectionKey = tag;
+      const candidate = (d.findings || []).filter(function(f){
+        const t = (f.title || '') + (f.text || '');
+        return !q || t.toLowerCase().includes(q);
+      });
+      if(candidate.length === 0){
+        var el = document.createElement('div');
+        el.className = 'item';
+        var label = document.createElement('div');
+        label.className = 'meta';
+        label.innerHTML = '<span class="tag">Template</span>';
+        var title = document.createElement('div');
+        title.style.fontWeight = '700';
+        title.textContent = 'Add findings';
+        var help = document.createElement('div');
+        help.className = 'small';
+        help.textContent = 'Use DATA.' + sectionKey + '.findings with objects: { title, text }.';
+        el.appendChild(label); el.appendChild(title); el.appendChild(help);
+        findingsNode.appendChild(el);
+      } else {
+        candidate.forEach(function(f,i){
+          var el = document.createElement('div');
+          el.className = 'item';
+          var meta = document.createElement('div');
+          meta.className = 'meta';
+          meta.innerHTML = '<span class="tag">Finding ' + (i+1) + '</span>';
+          var t = document.createElement('div');
+          t.style.fontWeight = '700';
+          t.textContent = f.title || 'Untitled';
+          var txt = document.createElement('div');
+          txt.className = 'small';
+          txt.textContent = f.text || '';
+          el.appendChild(meta); el.appendChild(t); el.appendChild(txt);
+          findingsNode.appendChild(el);
+        });
+      }
+
+      // Notes
+      notesNode.innerHTML = '';
+      d.notes.forEach((n,i)=>{
+        const el = document.createElement('div');
+        el.className = 'item';
+        el.innerHTML = `<div class="meta"><span class="tag">Note ${i+1}</span></div><div>${n}</div>`;
+        notesNode.appendChild(el);
+      });
+
+      // Sources
+      sourcesNode.innerHTML = '';
+      d.sources.forEach(s=>{
+        const el = document.createElement('div');
+        el.className = 'item';
+        el.innerHTML = `<div><a href="${s.url}" target="_blank" rel="noopener noreferrer">${s.label}</a></div><div class="small">${s.url}</div>`;
+        sourcesNode.appendChild(el);
+      });
+
+      // Chart
+      const labels = d.chart.labels;
+      const values = d.chart.data;
+      if(chart){ chart.destroy(); }
+      chart = new Chart(chartCanvas, {
+        type: 'line',
+        data: { labels, datasets: [{ label: bCase(tag), data: values, tension:.35, fill:true }]},
+        options: {
+          plugins: { legend: { display:false } },
+          scales: {
+            x: { grid: { color: 'rgba(255,255,255,.06)' }, ticks:{ color:'#b7bce0' } },
+            y: { grid: { color: 'rgba(255,255,255,.06)' }, ticks:{ color:'#b7bce0' } }
+          }
+        }
+      });
+    }
+
+    function bCase(s){ return s.charAt(0).toUpperCase()+s.slice(1); }
+
+    // Init
+    tabs.forEach(b=> b.addEventListener('click', ()=> setActive(b.dataset.tag)) );
+    searchBox.addEventListener('input', ()=> setActive(active));
+
+    // Presenter Mode
+    presenterBtn.addEventListener('click', ()=>{
+      const on = presenterBtn.getAttribute('aria-pressed') === 'true';
+      const next = !on;
+      presenterBtn.setAttribute('aria-pressed', String(next));
+      document.body.classList.toggle('focus', next);
+    });
+
+    // Keyboard control for presentation
+    document.addEventListener('keydown', e=>{
+      const order = ['student','faculty','city','state','economic'];
+      const idx = order.indexOf(active);
+      if(e.key === 'ArrowRight') setActive(order[Math.min(order.length-1, idx+1)]);
+      if(e.key === 'ArrowLeft') setActive(order[Math.max(0, idx-1)]);
+      if(e.key.toLowerCase() === 'p') presenterBtn.click();
+    });
+
+    // Print and export
+    printBtn.addEventListener('click', ()=> window.print());
+    exportBtn.addEventListener('click', ()=>{
+      const d = DATA[active];
+      const notes = d.notes.map((n,i)=> `${i+1}. ${n}`).join('\n');
+      const blob = new Blob([`Speaking Notes — ${bCase(active)} Impact\n\n${notes}\n`], { type: 'text/plain' });
+      navigator.clipboard.writeText(`Speaking Notes — ${bCase(active)} Impact\n\n${notes}\n`);
+      alert('Notes copied to clipboard.');
+    });
+
+    // Deep link support: ?tab=city
+    const params = new URLSearchParams(location.search);
+    const initial = params.get('tab');
+    if(['student','faculty','city','state','economic'].includes(initial)) setActive(initial); else setActive('student');
+  </script>
+</body>
+</html>
