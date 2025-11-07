@@ -8,8 +8,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
+  <link rel="stylesheet" href="./style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
 </head>
 <body>
   <header>
@@ -35,24 +36,7 @@
         <button class="tab" role="tab" aria-selected="false" data-tag="faculty">Faculty Impact</button>
         <button class="tab" role="tab" aria-selected="false" data-tag="city">City Impact</button>
         <button class="tab" role="tab" aria-selected="false" data-tag="state">State Impact</button>
-        <button class="tab" role="tab" aria-selected="false" data-tag="economic">Economic Impact</button>
-      </div>
-      <div class="progress" aria-hidden="true"><div class="bar" id="bar"></div></div>
-    </div>
-  </header>
-
-  <main class="wrap" id="app">
-    <!-- Cards grid -->
-    <section class="grid" id="section-grid">
-      <article class="card span-8 active-section" id="card-summary">
-        <div style="display:flex; justify-content:space-between; align-items:center; gap:12px">
-          <h2 style="margin:0">Section Overview</h2>
-          <span class="pill"><span id="pill-tag">Student Impact</span></span>
-        </div>
-        <p id="section-summary" class="small">Add a concise, 2–3 sentence summary for this section. Keep it specific to the selected impact domain.</p>
-        <canvas id="chart" height="120" aria-label="Section chart" role="img"></canvas>
-      </article>
-
+@@ -148,245 +56,31 @@
       <article class="card span-4" id="card-kpis">
         <h3 style="margin-top:0">Signals</h3>
         <div class="kpis" id="kpis"></div>
@@ -78,8 +62,5 @@
   </main>
 
   <footer class="footer">
-    Built with plain HTML, CSS, and JavaScript. Ready for GitHub Pages. Edit the DATA object in this file to update content.
+    Built with plain HTML, CSS, and JavaScript. Ready for GitHub Pages. Edit the DATA object in <code>script.js</code> to update content.
   </footer>
-
-</body>
-</html>
