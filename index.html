@@ -3,65 +3,70 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>UTSA × UT Health | Impact Dashboard</title>
-  <script src="script.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <meta name="description" content="Interactive dashboard for the broader impact of the UTSA × UT Health San Antonio merger." />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <title>UTSA × UT Health Impact Dashboard</title>
 
-  <link rel="stylesheet" href="style.css">
+  <!-- Styles -->
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <header>
+  <header class="site-header">
     <div class="wrap">
-      <div class="title">
-        <div class="logo" aria-hidden="true"></div>
-        <div>
-          <h1>UTSA × UT Health San Antonio • Impact Dashboard</h1>
-          <div class="subtitle">Interactive, public‑facing site for a 20‑minute class presentation. Use tabs to follow speakers in real time.</div>
-        </div>
-      </div>
-      <div class="toolbar" role="region" aria-label="tools">
-        <div class="search">
-          <input id="q" type="search" placeholder="Search findings, notes, sources" aria-label="Search" />
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M21 21l-4.35-4.35" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/></svg>
-        </div>
-        <button id="presenter" class="btn" aria-pressed="false" title="Toggle Presenter Mode">Presenter</button>
-        <button id="print" class="btn" title="Print or save to PDF">Print</button>
-        <button id="export" class="btn" title="Copy speaking notes">Copy Notes</button>
-      </div>
-      <div class="tabs" role="tablist" aria-label="Impact Sections">
-        <button class="tab active" role="tab" aria-selected="true" data-tag="student">Student Impact</button>
-        <button class="tab" role="tab" aria-selected="false" data-tag="faculty">Faculty Impact</button>
-        <button class="tab" role="tab" aria-selected="false" data-tag="city">City Impact</button>
-        <button class="tab" role="tab" aria-selected="false" data-tag="state">State Impact</button>
-@@ -148,245 +56,31 @@
-      <article class="card span-4" id="card-kpis">
-        <h3 style="margin-top:0">Signals</h3>
-        <div class="kpis" id="kpis"></div>
-        <p class="small">Edit the KPI data in <code>DATA.kpis</code> below. Values can be counts, deltas, or targets.</p>
+      <h1 class="site-title">UTSA × UT Health Impact Dashboard</h1>
+      <p class="site-subtitle">Interactive overview for our 20 minute presentation. Use the tabs to follow each speaker.</p>
+    </div>
+  </header>
+
+  <nav class="tabs wrap" role="tablist" aria-label="Impact sections">
+    <button class="tab is-active" role="tab" aria-selected="true" data-section="student">Student</button>
+    <button class="tab" role="tab" aria-selected="false" data-section="faculty">Faculty</button>
+    <button class="tab" role="tab" aria-selected="false" data-section="city">City</button>
+    <button class="tab" role="tab" aria-selected="false" data-section="state">State</button>
+    <button class="tab" role="tab" aria-selected="false" data-section="economic">Economic</button>
+  </nav>
+
+  <main class="wrap">
+    <section class="grid">
+      <article class="card card--wide" id="card-overview">
+        <header class="card-head">
+          <h2 id="section-title">Student Impact</h2>
+          <span class="pill" id="section-pill">Active section</span>
+        </header>
+        <p class="lead" id="section-summary">Add a short 2 to 3 sentence summary for this section.</p>
+        <canvas id="chart" height="140" aria-label="Section chart" role="img"></canvas>
       </article>
 
-      <article class="card span-12" id="card-findings">
-        <h3 style="margin-top:0">Findings</h3>
-        <div class="list" id="findings"></div>
+      <article class="card" id="card-kpis">
+        <h3>Signals</h3>
+        <div id="kpis" class="kpis"></div>
+        <p class="muted small">Edit KPIs in DATA for this section. Values can be counts, deltas, or targets.</p>
       </article>
 
-      <article class="card span-12" id="card-notes">
-        <h3 style="margin-top:0">Speaking Notes</h3>
+      <article class="card card--wide" id="card-findings">
+        <h3>Findings</h3>
+        <div id="findings" class="list"></div>
+      </article>
+
+      <article class="card card--wide" id="card-notes">
+        <h3>Speaking Notes</h3>
         <div id="notes" class="list"></div>
       </article>
 
-      <article class="card span-12" id="card-sources">
-        <h3 style="margin-top:0">Sources</h3>
+      <article class="card card--wide" id="card-sources">
+        <h3>Sources</h3>
         <div id="sources" class="list"></div>
-        <p class="small">Paste URLs with a short label. Everything is client‑side, so this works on GitHub Pages.</p>
+        <p class="muted small">Paste URLs with short labels. Everything is static, so this works on GitHub Pages.</p>
       </article>
     </section>
   </main>
 
-  <footer class="footer">
-    Built with plain HTML, CSS, and JavaScript. Ready for GitHub Pages. Edit the DATA object in <code>script.js</code> to update content.
+  <footer class="site-footer">
+    <div class="wrap">
+      <p class="muted small">Built with HTML, CSS, and vanilla JavaScript. Charts by Chart.js.</p>
+    </div>
   </footer>
+
+  <!-- Libraries then app script -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
