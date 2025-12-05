@@ -262,7 +262,6 @@ const sectionPill = document.getElementById("section-pill");
 const sectionSummary = document.getElementById("section-summary");
 const kpisNode = document.getElementById("kpis");
 const findingsNode = document.getElementById("findings");
-const actionsNode = document.getElementById("actions");
 const sourcesNode = document.getElementById("sources");
 const mergerStatsNode = document.getElementById("merger-stats");
 const mergerQuote = document.getElementById("merger-quote");
@@ -508,7 +507,6 @@ function setActive(key, opts = {}){
 
   renderKPIs(data.kpis);
   renderList(findingsNode, data.findings, "findings", key);
-  renderList(actionsNode, data.actions, "actions", key);
   renderList(sourcesNode, data.sources, "sources", key);
   renderChart(data.chart, data.chartData);
   updateProgress();
