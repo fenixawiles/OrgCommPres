@@ -60,6 +60,38 @@
         <div id="findings" class="list"></div>
       </article>
 
+      <article class="card" id="card-merger">
+        <div class="card-head">
+          <h3>Merger Snapshot</h3>
+          <div class="chip-group" role="tablist" aria-label="Merger lens">
+            <button class="chip is-active" role="tab" aria-selected="true" data-merger-view="economic">Economic</button>
+            <button class="chip" role="tab" aria-selected="false" data-merger-view="state">State</button>
+          </div>
+        </div>
+        <p class="muted small">Click a lens to compare the merger’s economic lift and statewide reach.</p>
+        <div id="merger-stats" class="kpis"></div>
+        <blockquote id="merger-quote" class="quote"></blockquote>
+        <a id="merger-source" class="small" href="#" target="_blank" rel="noopener noreferrer">View source</a>
+      </article>
+
+      <article class="card card--wide" id="card-headlines">
+        <div class="card-head">
+          <h3>Merger Headlines</h3>
+          <div class="controls-inline">
+            <button id="headline-prev" class="ghost-btn" type="button">◀</button>
+            <span id="headline-index" class="small muted">1 / 4</span>
+            <button id="headline-next" class="ghost-btn" type="button">▶</button>
+          </div>
+        </div>
+        <div id="headline-body" class="headline">
+          <div class="headline-meta muted small"></div>
+          <strong class="headline-title"></strong>
+          <p class="headline-text"></p>
+          <blockquote class="quote headline-quote"></blockquote>
+          <a class="headline-link small" href="#" target="_blank" rel="noopener noreferrer">Read article</a>
+        </div>
+      </article>
+
       <article class="card card--wide" id="card-notes">
         <h3>Speaking Notes</h3>
         <div id="notes" class="list"></div>
