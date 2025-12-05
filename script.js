@@ -14,10 +14,10 @@ const DATA = {
       { title: "Placement supply constrains growth", text: "We’re running near capacity on clinical seats; Westside clinic partnerships unlocked 40 additional rotations." }
     ],
     chart: { labels: ["2019","2020","2021","2022","2023","2024"], data: [45,58,82,110,134,152] },
-    notes: [
-      "Open on the 152 students in the pipeline and note the 42% residency match rate with UT Health.",
-      "Call out scholarships as the lever that kept Pell students on track (0.6 semester gain).",
-      "Flag the need for more clinical slots; Westside partners added 40 placements."
+    actions: [
+      "Secure +50 clinical seats with Westside partners to keep pace with demand.",
+      "Extend scholarship dollars to preserve the 0.6 semester time-to-degree gain for Pell students.",
+      "Increase residency match agreements to push 42% closer to 50%."
     ],
     sources: [
       { label: "UTSA pipeline brief", url: "https://www.utsa.edu/" },
@@ -37,10 +37,10 @@ const DATA = {
       { title: "Shared cores reduce duplication", text: "Scheduling through shared cores cut redundant equipment purchases by ~$450K." }
     ],
     chart: { labels: ["2019","2020","2021","2022","2023","2024"], data: [8,12,16,21,31,38] },
-    notes: [
-      "Highlight that 38 joint appointments are co-advising students; connect to student outcomes.",
-      "Mention the $4.3M follow-on funding tied to our seed grants.",
-      "Point to shared cores as the efficiency story (saved ~$450K)."
+    actions: [
+      "Grow the seed fund to unlock additional $4.3M+ in external awards.",
+      "Expand shared core scheduling to avoid another $450K in duplicate spend.",
+      "Pair joint appointments with grad mentorship and new lines in growth areas."
     ],
     sources: [
       { label: "UTSA research collab dashboard", url: "https://www.utsa.edu/research/" },
@@ -60,10 +60,10 @@ const DATA = {
       { title: "Students drive language access", text: "Spanish-speaking student teams supported 1,400 visits that otherwise lacked translation." }
     ],
     chart: { labels: ["2019","2020","2021","2022","2023","2024"], data: [6,10,18,24,36,48] },
-    notes: [
-      "Tie the 48 clinic days to 5,800 patients served; stress bilingual support.",
-      "MOU count (9) shows we have runway to add seats for student rotations.",
-      "Share quick patient story to humanize the metric."
+    actions: [
+      "Add clinic days in Southside/Eastside to cut waits and serve more than 5,800 patients.",
+      "Scale bilingual (Spanish) support teams across all partner clinics.",
+      "Convert the 9 MOUs into funded rotation slots for students."
     ],
     sources: [
       { label: "UTSA community health", url: "https://www.utsa.edu/community/" },
@@ -83,10 +83,10 @@ const DATA = {
       { title: "Academic innovation is live", text: "New programs include MD/MS in AI, Nurse Anesthesia, and Dental Hygiene plus new facilities like Science One and the NeuroRecovery Lab." }
     ],
     chart: { labels: ["2021","2022","2023","2024","2025","2026"], data: [4.8,5.0,5.2,5.4,5.5,5.6] },
-    notes: [
-      "Open with 'third largest in Texas' and the 5.5M residents served across six campuses.",
-      "Link new degree programs to workforce gaps (AI, anesthesia, dental hygiene).",
-      "Quote Chancellor Milliken on public impact and competitiveness."
+    actions: [
+      "Launch bandwidth upgrades in 3 rural counties to stabilize telehealth reach.",
+      "Tie scholarships to in-state placement to sustain the 2.3× retention uplift.",
+      "Pilot MD/MS in AI and Nurse Anesthesia cohorts aligned to rural and statewide needs."
     ],
     sources: [
       { label: "UT System announcement", url: "https://magazines.uthscsa.edu/mission/university-in-motion-utsa-to-merge-with-ut-health-san-antonio" },
@@ -106,10 +106,10 @@ const DATA = {
       { title: "Local workforce flywheel", text: "Over 90% of alumni remain in Texas, reinforcing the state workforce with health, biotech, and engineering talent." }
     ],
     chart: { labels: ["2021","2022","2023","2024","2025","2026"], data: [320,360,410,470,486,500] },
-    notes: [
-      "Lead with $7B projected economic impact and $486M research expenditures.",
-      "Emphasize 40k students and 17k employees as a talent and spend engine.",
-      "Mention six federally funded R&D centers and the $44.1B regional sector."
+    actions: [
+      "Land industry partnerships leveraging $486M research spend and 6 federally funded centers.",
+      "Track the $7B projected impact with regional dashboards tied to the $44.1B sector.",
+      "Showcase 90% alumni retention in Texas to workforce and state partners."
     ],
     sources: [
       { label: "Merger completion release", url: "https://news.uthscsa.edu/utsa-and-ut-health-san-antonio-complete-merger-to-become-the-university-of-texas-at-san-antonio-2" },
@@ -174,6 +174,85 @@ const MERGER_HEADLINES = [
   }
 ];
 
+/* Structured content objects for Economic and State impacts */
+const EconomicImpact = {
+  summary: "UT San Antonio blends two R1 universities with ~$486M annual research spend, a projected $7B annual economic impact, and six federally funded R&D centers. The merger scales talent and capital to pull industry partners, philanthropic investment, and regional growth.",
+  signals: [
+    { label: "Annual Research Expenditures", value: 486000000 },
+    { label: "Economic Impact", value: 7000000000 },
+    { label: "Students Served", value: 40000 },
+    { label: "Employees", value: 17000 },
+    { label: "Population Served", value: null },
+    { label: "New Programs / Facilities", value: "320+ programs; 6 R&D centers; $1.3B endowment" }
+  ],
+  findings: "Economic lift is driven by combining $486M research spend, 6 R&D centers, and 40k students/17k employees into a single institution that boosts the $44.1B regional health and biosciences sector. Scale and alumni stickiness (90% stay in Texas) make UT San Antonio a workforce and innovation flywheel.",
+  speakingNotes: "Lead with the $7B projected annual impact and $486M research engine; call out 6 federally funded R&D centers and $1.3B endowment; emphasize 40k students/17k employees feeding the $44.1B sector; note 90% alumni retention in Texas.",
+  sources: [
+    { title: "UT System approval", url: "https://magazines.uthscsa.edu/mission/university-in-motion-utsa-to-merge-with-ut-health-san-antonio" },
+    { title: "Merger completion release", url: "https://news.uthscsa.edu/utsa-and-ut-health-san-antonio-complete-merger-to-become-the-university-of-texas-at-san-antonio-2" },
+    { title: "President statement", url: "https://www.utsa.edu/president/2025/09/story/2025-09-30.html" },
+    { title: "Express-News commentary", url: "https://www.expressnews.com/opinion/commentary/article/ut-san-antonio-merger-21029327.php" },
+    { title: "KSAT report", url: "https://www.ksat.com/news/local/2025/09/01/ut-san-antonio-merger-completed-becoming-texas-third-largest-public-research-university/" },
+    { title: "UT System FAQ", url: "https://www.utsystem.edu/sites/default/files/landing-pages/utsa2/utsa-uthscsa-faq-2024-08-22.pdf" }
+  ],
+  chartData: {
+    labels: ["2022", "2023", "2024", "2025 proj"],
+    datasets: [
+      {
+        label: "Research expenditures ($B)",
+        data: [0.47, 0.48, 0.486, 0.49],
+        backgroundColor: "rgba(241,90,34,.25)",
+        borderColor: "#f15a22",
+        borderWidth: 2,
+        tension: 0.3
+      },
+      {
+        label: "Projected economic impact ($B)",
+        data: [6.2, 6.6, 7.0, 7.2],
+        backgroundColor: "rgba(12,35,64,.14)",
+        borderColor: "#0c2340",
+        borderWidth: 2,
+        tension: 0.25
+      }
+    ]
+  }
+};
+
+const StateImpact = {
+  summary: "UT San Antonio is now Texas’ third largest public research university, serving 5.5M residents today (6.1M by 2040) across six campuses and 15 colleges with 320+ degrees. New programs and facilities extend reach into health, AI, and workforce development.",
+  signals: [
+    { label: "Annual Research Expenditures", value: 486000000 },
+    { label: "Economic Impact", value: 7000000000 },
+    { label: "Students Served", value: 40000 },
+    { label: "Employees", value: 17000 },
+    { label: "Population Served", value: 6100000 },
+    { label: "New Programs / Facilities", value: "MD/MS AI; Nurse Anesthesia; Dental Hygiene; Science One; NeuroRecovery Lab" }
+  ],
+  findings: "State reach grows as a unified R1 institution with six campuses, 320+ degrees, and new clinical/AI programs. Being third in Texas by research scale signals competitive heft; serving 5.5M people (6.1M projected) ties the academic portfolio directly to public health and workforce outcomes.",
+  speakingNotes: "Open with third-largest public research university status; cite 5.5M people served (6.1M by 2040) across 6 campuses and 15 colleges; mention new MD/MS in AI, Nurse Anesthesia, and Dental Hygiene plus Science One and NeuroRecovery Lab; connect scale to statewide health and workforce impact.",
+  sources: [
+    { title: "UT System approval", url: "https://magazines.uthscsa.edu/mission/university-in-motion-utsa-to-merge-with-ut-health-san-antonio" },
+    { title: "Merger completion release", url: "https://news.uthscsa.edu/utsa-and-ut-health-san-antonio-complete-merger-to-become-the-university-of-texas-at-san-antonio-2" },
+    { title: "President statement", url: "https://www.utsa.edu/president/2025/09/story/2025-09-30.html" },
+    { title: "Express-News commentary", url: "https://www.expressnews.com/opinion/commentary/article/ut-san-antonio-merger-21029327.php" },
+    { title: "KSAT report", url: "https://www.ksat.com/news/local/2025/09/01/ut-san-antonio-merger-completed-becoming-texas-third-largest-public-research-university/" },
+    { title: "UT System FAQ", url: "https://www.utsystem.edu/sites/default/files/landing-pages/utsa2/utsa-uthscsa-faq-2024-08-22.pdf" }
+  ],
+  chartData: {
+    labels: ["2023", "2024", "2025", "2040 proj"],
+    datasets: [
+      {
+        label: "Population served (millions)",
+        data: [5.5, 5.6, 5.7, 6.1],
+        backgroundColor: "rgba(241,90,34,.22)",
+        borderColor: "#f15a22",
+        borderWidth: 2,
+        tension: 0.32
+      }
+    ]
+  }
+};
+
 const ORDER = Object.keys(DATA);
 
 /* elements */
@@ -183,7 +262,7 @@ const sectionPill = document.getElementById("section-pill");
 const sectionSummary = document.getElementById("section-summary");
 const kpisNode = document.getElementById("kpis");
 const findingsNode = document.getElementById("findings");
-const notesNode = document.getElementById("notes");
+const actionsNode = document.getElementById("actions");
 const sourcesNode = document.getElementById("sources");
 const mergerStatsNode = document.getElementById("merger-stats");
 const mergerQuote = document.getElementById("merger-quote");
@@ -228,6 +307,21 @@ function pulseCards(){
   });
 }
 
+function formatValue(label, val){
+  if(val === null){ return "—"; }
+  if(typeof val !== "number"){ return val; }
+  const lower = label.toLowerCase();
+  const isMoney = lower.includes("research") || lower.includes("economic") || lower.includes("endowment");
+  if(isMoney){
+    const isBillions = val >= 1_000_000_000;
+    const divisor = isBillions ? 1_000_000_000 : 1_000_000;
+    const unit = isBillions ? "B" : "M";
+    const formatted = (val / divisor).toFixed(val % divisor === 0 ? 0 : 1);
+    return `$${formatted}${unit}`;
+  }
+  return val.toLocaleString("en-US");
+}
+
 function renderKPIs(list, target = kpisNode){
   target.innerHTML = "";
   const data = list && list.length ? list : [{ label: "Add KPI", value: "0" }];
@@ -235,7 +329,7 @@ function renderKPIs(list, target = kpisNode){
   data.forEach(k => {
     const el = document.createElement("div");
     el.className = "kpi";
-    el.innerHTML = `<h4>${k.label}</h4><div class="val">${k.value}</div>`;
+    el.innerHTML = `<h4>${k.label}</h4><div class="val">${formatValue(k.label, k.value)}</div>`;
     frag.appendChild(el);
   });
   target.appendChild(frag);
@@ -261,9 +355,9 @@ function renderList(node, list, kind, sectionKey){
         <strong>${obj.title || "Untitled"}</strong>
         <div class="muted">${obj.text || ""}</div>
       `;
-    } else if(kind === "notes"){
+    } else if(kind === "actions"){
       el.innerHTML = `
-        <div class="meta"><span>Note ${i+1}</span></div>
+        <div class="meta"><span>Move ${i+1}</span></div>
         <div>${obj}</div>
       `;
     } else if(kind === "sources"){
@@ -311,7 +405,7 @@ function renderHeadline(index){
   headlineIndex.textContent = `${headlineIdx + 1} / ${len}`;
 }
 
-function renderChart(cfg){
+function renderChart(cfg, fullConfig){
   const labels = (cfg && Array.isArray(cfg.labels) && cfg.labels.length) ? cfg.labels : ["A","B","C","D"];
   const values = (cfg && Array.isArray(cfg.data) && cfg.data.length) ? cfg.data : [0,0,0,0];
   if(chart){ chart.destroy(); }
@@ -324,11 +418,16 @@ function renderChart(cfg){
   const baseColor = "#f15a22";
   const fillColor = "rgba(241,90,34,.16)";
 
-  chart = new Chart(chartCanvas, {
-    type: chartType,
-    data: {
-      labels,
-      datasets: [{
+  const datasets = fullConfig && Array.isArray(fullConfig.datasets) && fullConfig.datasets.length
+    ? fullConfig.datasets.map(ds => ({
+        ...ds,
+        backgroundColor: ds.backgroundColor || (chartType === "line" ? fillColor : "rgba(12,35,64,.18)"),
+        borderColor: ds.borderColor || baseColor,
+        borderWidth: ds.borderWidth || 2,
+        tension: chartType === "line" ? (ds.tension ?? 0.36) : 0,
+        fill: chartType === "line"
+      }))
+    : [{
         label: `${titleCase(active)} trend`,
         data: values,
         fill: chartType === "line",
@@ -339,10 +438,16 @@ function renderChart(cfg){
         pointRadius: chartType === "line" ? 3 : 0,
         pointHoverRadius: 5,
         borderRadius: chartType === "bar" ? 8 : 0
-      }]
+      }];
+
+  chart = new Chart(chartCanvas, {
+    type: chartType,
+    data: {
+      labels: (fullConfig && fullConfig.labels && fullConfig.labels.length) ? fullConfig.labels : labels,
+      datasets
     },
     options: {
-      plugins: { legend: { display: false } },
+      plugins: { legend: { display: true } },
       responsive: true,
       animation: {
         duration: 700,
@@ -403,12 +508,41 @@ function setActive(key, opts = {}){
 
   renderKPIs(data.kpis);
   renderList(findingsNode, data.findings, "findings", key);
-  renderList(notesNode, data.notes, "notes", key);
+  renderList(actionsNode, data.actions, "actions", key);
   renderList(sourcesNode, data.sources, "sources", key);
-  renderChart(data.chart);
+  renderChart(data.chart, data.chartData);
   updateProgress();
   if(!opts.fromTour && tourActive){ stopTour(); }
   pulseCards();
+}
+
+function updateSection(sectionName, payload){
+  const key = sectionName.toLowerCase();
+  const base = DATA[key] || {};
+  const kpis = (payload.signals || []).map(sig => ({ label: sig.label, value: sig.value }));
+  const findings = payload.findings ? [{ title: "Key finding", text: payload.findings }] : [];
+  const actions = payload.speakingNotes
+    ? payload.speakingNotes.split(/[\n;•]/).map(s => s.trim()).filter(Boolean)
+    : [];
+  const sources = (payload.sources || []).map(s => ({ label: s.title, url: s.url }));
+  const chart = payload.chartData
+    ? { labels: payload.chartData.labels, data: payload.chartData.datasets && payload.chartData.datasets[0] ? payload.chartData.datasets[0].data : [] }
+    : base.chart;
+
+  DATA[key] = {
+    ...base,
+    summary: payload.summary,
+    kpis,
+    findings,
+    actions,
+    sources,
+    chartData: payload.chartData,
+    chart
+  };
+
+  if(active === key){
+    setActive(key);
+  }
 }
 
 /* events */
@@ -450,6 +584,10 @@ document.addEventListener("keydown", e => {
 document.addEventListener("visibilitychange", () => {
   if(document.hidden){ stopTour(); }
 });
+
+/* apply research-driven content to Economic and State sections */
+updateSection("Economic", EconomicImpact);
+updateSection("State", StateImpact);
 
 /* init */
 setActive(active);
