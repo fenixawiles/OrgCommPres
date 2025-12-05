@@ -10,9 +10,23 @@
 </head>
 <body>
   <header class="site-header">
-    <div class="wrap">
-      <h1 class="site-title">UTSA × UT Health Impact Dashboard</h1>
-      <p class="site-subtitle">Interactive overview for our 20 minute presentation. Use the tabs to follow each speaker.</p>
+    <div class="wrap header-grid">
+      <div>
+        <h1 class="site-title">UTSA × UT Health Impact Dashboard</h1>
+        <p class="site-subtitle">Interactive overview for our 20 minute presentation. Use the tabs to follow each speaker.</p>
+        <div class="progress-wrap">
+          <div id="progress-label" class="progress-label" aria-live="polite">Section 1 of 5</div>
+          <div class="progress-bar" aria-hidden="true">
+            <div id="progress-bar" class="progress-bar__fill"></div>
+          </div>
+        </div>
+      </div>
+      <div class="controls" aria-label="Playback and chart controls">
+        <button id="prev" class="ghost-btn" type="button">◀ Prev</button>
+        <button id="tour" class="primary-btn" type="button">Start tour</button>
+        <button id="next" class="ghost-btn" type="button">Next ▶</button>
+        <button id="chart-toggle" class="ghost-btn" type="button">Chart: Line</button>
+      </div>
     </div>
   </header>
 
