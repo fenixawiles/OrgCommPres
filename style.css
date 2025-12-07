@@ -70,6 +70,14 @@ body::before {
     display: flex;
     justify-content: center;
     gap: 28px;
+    padding: 0 16px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+}
+
+.navbar ul::-webkit-scrollbar {
+    display: none;
 }
 
 .navbar a {
@@ -193,6 +201,15 @@ body::before {
     transform: none;
     border-color: var(--border);
     box-shadow: var(--shadow);
+}
+
+@media (pointer: coarse) {
+    .section,
+    .section:hover {
+        transform: none !important;
+        transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        box-shadow: var(--shadow);
+    }
 }
 
 .section p {
@@ -462,6 +479,7 @@ canvas {
 @media (max-width: 768px) {
     .navbar ul {
         gap: 12px;
+        justify-content: flex-start;
     }
 
     .navbar a {
@@ -481,5 +499,76 @@ canvas {
     .section p,
     .section ul li {
         font-size: 17px;
+    }
+}
+
+@media (max-width: 640px) {
+    .navbar {
+        padding: 12px 0;
+    }
+
+    .navbar a {
+        font-size: 15px;
+        padding: 8px 10px;
+        letter-spacing: 0.01em;
+    }
+
+    .page-header {
+        padding: 64px 16px 32px;
+    }
+
+    .page-header h1 {
+        font-size: clamp(28px, 6vw, 38px);
+    }
+
+    .page-header p {
+        font-size: 18px;
+    }
+
+    .section {
+        width: 92%;
+        padding: 22px 18px;
+        margin: 22px auto;
+        border-radius: 14px;
+    }
+
+    .section h2 {
+        font-size: 20px;
+    }
+
+    .section p,
+    .section ul li {
+        font-size: 16px;
+    }
+
+    .stat-card {
+        padding: 14px 14px;
+    }
+
+    .stat-number {
+        font-size: 28px;
+    }
+
+    .stat-number .suffix {
+        font-size: 15px;
+    }
+
+    canvas {
+        height: 160px;
+    }
+
+    .back-to-top {
+        right: 16px;
+        bottom: 18px;
+        width: 42px;
+        height: 42px;
+    }
+
+    /* minimize hover-driven transforms on touch devices */
+    .section,
+    .section:hover {
+        transform: none !important;
+        transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        box-shadow: var(--shadow);
     }
 }

@@ -266,8 +266,9 @@
             canvases.forEach((canvas) => {
                 const cfg = configs[canvas.id];
                 if (!cfg) return;
-                if (isDataPage && window.Chart) {
-                    Chart.defaults.devicePixelRatio = 1;
+                if (window.Chart) {
+                    const maxDpr = isDataPage ? 1 : 1.5;
+                    Chart.defaults.devicePixelRatio = Math.min(window.devicePixelRatio || 1, maxDpr);
                 }
                 new Chart(canvas.getContext("2d"), cfg);
             });
