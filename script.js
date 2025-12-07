@@ -2,7 +2,7 @@
     const select = (q, ctx = document) => ctx.querySelector(q);
     const selectAll = (q, ctx = document) => Array.from(ctx.querySelectorAll(q));
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const isMobile = () => window.matchMedia("(max-width: 640px)").matches;
+    const isMobile = () => window.matchMedia("(max-width: 820px)").matches;
 
     const getSlug = (href) => {
         if (!href) return "";
@@ -46,7 +46,7 @@
     }
 
     function setupNavHighlight() {
-        const navLinks = selectAll(".navbar a");
+        const navLinks = selectAll(".navbar a, .mobile-menu a");
         if (!navLinks.length) return;
 
         const pageSlug = getSlug(window.location.pathname.split("/").pop());
@@ -109,45 +109,56 @@
         });
     }
 
-    function setupMobileNav() {
-        selectAll(".navbar").forEach((nav) => {
-            const ul = select("ul", nav);
-            if (!ul || nav.querySelector(".nav-toggle")) return;
+    function setupHamburgerMenu() {
+        const burger = select(".hamburger");
+        const menu = select(".mobile-menu");
+        const overlay = select(".mobile-menu__overlay");
+        const closeBtn = select(".mobile-menu__close");
+        const menuLinks = selectAll(".mobile-menu a");
+        if (!burger || !menu || !overlay || !closeBtn) return;
 
-            const toggle = document.createElement("button");
-            toggle.className = "nav-toggle";
-            toggle.setAttribute("aria-label", "Toggle navigation");
-            toggle.setAttribute("aria-expanded", "false");
-            toggle.innerHTML = "<span></span><span></span><span></span>";
-            nav.insertBefore(toggle, ul);
-            nav.classList.add("nav-collapsible", "nav-collapsed");
+        const closeMenu = () => {
+            menu.classList.remove("open");
+            overlay.classList.remove("show");
+            burger.setAttribute("aria-expanded", "false");
+            document.body.style.overflow = "";
+        };
 
-            const closeNav = () => {
-                nav.classList.remove("nav-open");
-                toggle.setAttribute("aria-expanded", "false");
-            };
+        const openMenu = () => {
+            if (!isMobile()) return;
+            menu.classList.add("open");
+            overlay.classList.add("show");
+            burger.setAttribute("aria-expanded", "true");
+            document.body.style.overflow = "hidden";
+        };
 
-            toggle.addEventListener("click", (e) => {
-                e.stopPropagation();
-                const open = nav.classList.toggle("nav-open");
-                toggle.setAttribute("aria-expanded", open ? "true" : "false");
-            });
+        burger.addEventListener("click", (e) => {
+            e.stopPropagation();
+            menu.classList.contains("open") ? closeMenu() : openMenu();
+        });
 
-            ul.addEventListener("click", (e) => {
-                if (isMobile() && e.target.closest("a")) {
-                    closeNav();
-                }
-            });
+        closeBtn.addEventListener("click", closeMenu);
+        overlay.addEventListener("click", closeMenu);
+        menuLinks.forEach((link) =>
+            link.addEventListener("click", () => {
+                if (isMobile()) closeMenu();
+            })
+        );
 
-            document.addEventListener("click", (e) => {
-                if (!nav.contains(e.target) && isMobile()) {
-                    closeNav();
-                }
-            });
+        document.addEventListener("click", (e) => {
+            if (menu.classList.contains("open") && !menu.contains(e.target) && !burger.contains(e.target)) {
+                closeMenu();
+            }
+        });
 
-            window.addEventListener("resize", () => {
-                if (!isMobile()) closeNav();
-            });
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape" && menu.classList.contains("open")) {
+                closeMenu();
+            }
+        });
+
+        window.addEventListener("resize", () => {
+            if (!isMobile()) closeMenu();
         });
     }
 
@@ -378,7 +389,7 @@
         setupCounters();
         setupCharts();
         setupCollapsibles();
-        setupMobileNav();
+        setupHamburgerMenu();
     }
 
     document.addEventListener("DOMContentLoaded", init);
