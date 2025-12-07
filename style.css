@@ -362,6 +362,7 @@ a{
   box-shadow: var(--shadow-1);
   color: var(--ink-dim);
 }
+.is-hidden{ display: none !important; }
   .controls-inline{
     display: inline-flex;
     align-items: center;

@@ -48,26 +48,30 @@ const DATA = {
     ]
   },
   city: {
-    summary: "Community health work now runs year-round through UTSA service teams and UT Health clinical leads. Partnerships with Westside, Southside, and Eastside clinics are producing measurable access gains.",
+    summary: "The merger is city-shaping: it strengthens San Antonio’s $44.1B health and bioscience core, pulls larger research grants and firms into the city, and keeps more locally trained clinicians practicing here. It also lifts San Antonio’s profile in infectious disease, cancer, aging, and neuroscience—while raising new equity and affordability pressures near the Medical Center and fast-growing corridors.",
     kpis: [
-      { label: "Community clinic days", value: "48" },
-      { label: "Neighborhood research MOUs", value: "9" },
-      { label: "UTSA students in service teams", value: "186" },
-      { label: "Patients served annually", value: "5,800" }
+      { label: "Healthcare & bioscience sector", value: "$44.1B regional engine" },
+      { label: "Local talent pipeline", value: "More MD/RN trained & retained locally" },
+      { label: "Research & startups", value: "Growth in medtech, public health, biomed" },
+      { label: "Community access focus", value: "Trauma, mental health, preventive care" }
     ],
     findings: [
-      { title: "Access gains where we partner", text: "Clinic days jumped 33% after adding Southside rotations; patient throughput rose ~19%." },
-      { title: "Students drive language access", text: "Spanish-speaking student teams supported 1,400 visits that otherwise lacked translation." }
+      { title: "Economic pull strengthens the city", text: "Combined resources attract larger grants, firms, and high-paying roles in medtech, public health, and biomedical research—fueling the $44.1B health/bioscience core. New arrivals bring spend and tax base growth, reinforcing downtown and Medical Center corridors." },
+      { title: "Health workforce expands locally", text: "More physicians, nurses, and specialists are trained and stay in San Antonio, shoring up trauma, mental health, and community health services. The University Health partnership anchors rotations and residencies so the city keeps talent it trains, easing shortages in emergency, behavioral health, and primary care." },
+      { title: "City reputation climbs", text: "San Antonio gains recognition in infectious disease, cancer, aging, and neuroscience—drawing researchers, startups, and investors to compete with Austin and Houston. Visibility pulls federal dollars and private capital that sustain labs, clinical trials, and commercialization." },
+      { title: "Healthcare access improves", text: "Stronger partnership with University Health lifts trauma care, mental health services, and community health programs—especially when paired with preventive outreach. Residents in historically underserved areas get more consistent access to screenings, language support, and navigation." },
+      { title: "Identity shift toward innovation", text: "The city is reframing itself as a scientific and medical research center, which attracts startups and capital and signals competitiveness with Austin and Houston. Closer links between campus labs, clinics, and industry make San Antonio a stickier place for talent." },
+      { title: "Equity and affordability pressures", text: "Growth raises housing costs near the Medical Center/Northside; Southside/Westside need sustained outreach, fair resource distribution, and affordability protections. Without guardrails, rising demand could displace residents the merger aims to serve." },
+      { title: "Transition friction", text: "Merger integration can briefly slow services or introduce system changes—residents and partners need clear communication and support during the transition. Short-term bumps are manageable if clinics, city agencies, and community groups stay aligned on timelines." }
     ],
-    chart: { labels: ["2019","2020","2021","2022","2023","2024"], data: [6,10,18,24,36,48] },
-    actions: [
-      "Add clinic days in Southside/Eastside to cut waits and serve more than 5,800 patients.",
-      "Scale bilingual (Spanish) support teams across all partner clinics.",
-      "Convert the 9 MOUs into funded rotation slots for students."
-    ],
+    chart: null,
+    chartData: null,
     sources: [
-      { label: "UTSA community health", url: "https://www.utsa.edu/community/" },
-      { label: "City clinic partners", url: "https://www.sanantonio.gov/health" }
+      { label: "UT System approval", url: "https://magazines.uthscsa.edu/mission/university-in-motion-utsa-to-merge-with-ut-health-san-antonio" },
+      { label: "Merger completion release", url: "https://news.uthscsa.edu/utsa-and-ut-health-san-antonio-complete-merger-to-become-the-university-of-texas-at-san-antonio-2" },
+      { label: "President statement", url: "https://www.utsa.edu/president/2025/09/story/2025-09-30.html" },
+      { label: "Express-News commentary", url: "https://www.expressnews.com/opinion/commentary/article/ut-san-antonio-merger-21029327.php" },
+      { label: "KSAT report", url: "https://www.ksat.com/news/local/2025/09/01/ut-san-antonio-merger-completed-becoming-texas-third-largest-public-research-university/" }
     ]
   },
   state: {
@@ -185,7 +189,12 @@ const EconomicImpact = {
     { label: "Population Served", value: null },
     { label: "New Programs / Facilities", value: "320+ programs; 6 R&D centers; $1.3B endowment" }
   ],
-  findings: "Economic lift is driven by combining $486M research spend, 6 R&D centers, and 40k students/17k employees into a single institution that boosts the $44.1B regional health and biosciences sector. Scale and alumni stickiness (90% stay in Texas) make UT San Antonio a workforce and innovation flywheel.",
+  findings: [
+    { title: "Scale unlocks capital", text: "$486M annual research, 6 federally funded R&D centers, and a $1.3B endowment position the merged R1 to pull larger federal, industry, and philanthropic awards." },
+    { title: "Projected $7B economic lift", text: "The combined institution boosts the $44.1B regional health/bioscience sector with new firms, medtech/public health jobs, and research spend circulating locally." },
+    { title: "Talent flywheel", text: "40k students, 17k employees, and 90% alumni retention in Texas create a durable workforce pipeline that keeps investment and productivity in-state." },
+    { title: "Brand strength attracts partners", text: "One of the largest R1 integrations by research dollars/endowment signals stability to industry partners, accelerating tech transfer and commercialization." }
+  ],
   speakingNotes: "Lead with the $7B projected annual impact and $486M research engine; call out 6 federally funded R&D centers and $1.3B endowment; emphasize 40k students/17k employees feeding the $44.1B sector; note 90% alumni retention in Texas.",
   sources: [
     { title: "UT System approval", url: "https://magazines.uthscsa.edu/mission/university-in-motion-utsa-to-merge-with-ut-health-san-antonio" },
@@ -228,7 +237,12 @@ const StateImpact = {
     { label: "Population Served", value: 6100000 },
     { label: "New Programs / Facilities", value: "MD/MS AI; Nurse Anesthesia; Dental Hygiene; Science One; NeuroRecovery Lab" }
   ],
-  findings: "State reach grows as a unified R1 institution with six campuses, 320+ degrees, and new clinical/AI programs. Being third in Texas by research scale signals competitive heft; serving 5.5M people (6.1M projected) ties the academic portfolio directly to public health and workforce outcomes.",
+  findings: [
+    { title: "Third-largest research university in Texas", text: "Six campuses, 15 colleges, and 320+ degrees place UT San Antonio among the state’s top three by research heft—$486M in research with two Carnegie R1 lineages." },
+    { title: "Statewide reach to 5.5M (6.1M by 2040)", text: "Serving South Texas with growth to 6.1M people ties academic output directly to public health, clinical training, and workforce needs." },
+    { title: "New academic capacity", text: "Programs like MD/MS in AI, Nurse Anesthesia, and Dental Hygiene plus facilities (Science One, NeuroRecovery Lab) target emerging healthcare and tech demands." },
+    { title: "Talent and employment scale", text: "40k students and 17k employees anchor workforce development, keeping graduates in Texas and aligning with state economic priorities." }
+  ],
   speakingNotes: "Open with third-largest public research university status; cite 5.5M people served (6.1M by 2040) across 6 campuses and 15 colleges; mention new MD/MS in AI, Nurse Anesthesia, and Dental Hygiene plus Science One and NeuroRecovery Lab; connect scale to statewide health and workforce impact.",
   sources: [
     { title: "UT System approval", url: "https://magazines.uthscsa.edu/mission/university-in-motion-utsa-to-merge-with-ut-health-san-antonio" },
@@ -267,6 +281,7 @@ const mergerStatsNode = document.getElementById("merger-stats");
 const mergerQuote = document.getElementById("merger-quote");
 const mergerSourceLink = document.getElementById("merger-source");
 const mergerChips = Array.from(document.querySelectorAll("[data-merger-view]"));
+const mergerCard = document.getElementById("card-merger");
 const headlineBody = document.getElementById("headline-body");
 const headlineMeta = headlineBody.querySelector(".headline-meta");
 const headlineTitle = headlineBody.querySelector(".headline-title");
@@ -508,7 +523,18 @@ function setActive(key, opts = {}){
   renderKPIs(data.kpis);
   renderList(findingsNode, data.findings, "findings", key);
   renderList(sourcesNode, data.sources, "sources", key);
-  renderChart(data.chart, data.chartData);
+  const hasChartData = data.chartData && Array.isArray(data.chartData.labels) && data.chartData.labels.length &&
+    Array.isArray(data.chartData.datasets) && data.chartData.datasets.length;
+  chartCanvas.style.display = hasChartData ? "block" : "none";
+  if(hasChartData){
+    renderChart(data.chart, data.chartData);
+  } else if(chart){
+    chart.destroy();
+    chart = null;
+  }
+  if(mergerCard){
+    mergerCard.style.display = key === "economic" ? "block" : "none";
+  }
   updateProgress();
   if(!opts.fromTour && tourActive){ stopTour(); }
   pulseCards();
@@ -518,7 +544,11 @@ function updateSection(sectionName, payload){
   const key = sectionName.toLowerCase();
   const base = DATA[key] || {};
   const kpis = (payload.signals || []).map(sig => ({ label: sig.label, value: sig.value }));
-  const findings = payload.findings ? [{ title: "Key finding", text: payload.findings }] : [];
+  const findings = Array.isArray(payload.findings)
+    ? payload.findings.map(f => ({ title: f.title || "Key finding", text: f.text || "" }))
+    : payload.findings
+      ? [{ title: "Key finding", text: payload.findings }]
+      : [];
   const actions = payload.speakingNotes
     ? payload.speakingNotes.split(/[\n;•]/).map(s => s.trim()).filter(Boolean)
     : [];
