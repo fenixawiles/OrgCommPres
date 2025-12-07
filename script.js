@@ -9,6 +9,8 @@
         return cleaned.replace(".html", "").toLowerCase() || "index";
     };
 
+    const isDataPage = document.body.classList.contains("data-page");
+
     const getCSSVar = (name) => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
 
     function setupBackToTop() {
@@ -110,6 +112,19 @@
         const counters = selectAll(".stat-number[data-target]");
         if (!counters.length) return;
 
+        // On data page, render instantly and skip animation.
+        if (isDataPage) {
+            counters.forEach((el) => {
+                const target = parseFloat(el.dataset.target);
+                const prefix = el.dataset.prefix || "";
+                const suffix = el.dataset.suffix || "";
+                const decimals = target % 1 !== 0 ? 1 : 0;
+                el.textContent = `${prefix}${target.toFixed(decimals)}${suffix}`;
+                el.dataset.counted = "true";
+            });
+            return;
+        }
+
         const animate = (el) => {
             const target = parseFloat(el.dataset.target);
             const prefix = el.dataset.prefix || "";
@@ -157,6 +172,107 @@
     function setupCharts() {
         const canvases = selectAll("[data-chart]");
         if (!canvases.length) return;
+
+        const loadCharts = () => {
+            const palette = {
+                orange: getCSSVar("--utsa-orange") || "#f15a22",
+                blue: getCSSVar("--utsa-blue") || "#0c2340",
+                frost: "rgba(255,255,255,0.8)",
+                grid: "rgba(255,255,255,0.12)"
+            };
+
+            const baseOptions = {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { labels: { color: palette.frost } },
+                    tooltip: { titleColor: "#0c0f18", bodyColor: "#0c0f18", backgroundColor: "#ffffff" }
+                },
+                animation: { duration: isDataPage || prefersReducedMotion ? 0 : 650, easing: "easeOutCubic" },
+                interaction: { mode: "nearest", intersect: false },
+                scales: {
+                    x: { grid: { color: palette.grid }, ticks: { color: palette.frost } },
+                    y: { grid: { color: palette.grid }, ticks: { color: palette.frost } }
+                }
+            };
+
+            const configs = {
+                researchChart: {
+                    type: "bar",
+                    data: {
+                        labels: ["UTSA (pre)", "UT Health (pre)", "Unified"],
+                        datasets: [
+                            {
+                                label: "Research Expenditures ($M)",
+                                data: [152, 413, 486],
+                                backgroundColor: [palette.blue, palette.orange, "#5fa8e6"],
+                                borderRadius: 8
+                            }
+                        ]
+                    },
+                    options: {
+                        ...baseOptions,
+                        plugins: { ...baseOptions.plugins, legend: { display: false } }
+                    }
+                },
+                workforceChart: {
+                    type: "line",
+                    data: {
+                        labels: ["UTSA", "UT Health", "Unified"],
+                        datasets: [
+                            {
+                                label: "Employees",
+                                data: [7000, 8700, 17000],
+                                borderColor: palette.orange,
+                                backgroundColor: "rgba(241,90,34,0.25)",
+                                tension: 0.35,
+                                borderWidth: 3,
+                                pointRadius: 4
+                            },
+                            {
+                                label: "Students",
+                                data: [34000, 4300, 38300],
+                                borderColor: palette.blue,
+                                backgroundColor: "rgba(12,35,64,0.25)",
+                                tension: 0.35,
+                                borderWidth: 3,
+                                pointRadius: 4
+                            }
+                        ]
+                    },
+                    options: baseOptions
+                },
+                fundingPie: {
+                    type: "doughnut",
+                    data: {
+                        labels: ["UTSA baseline", "UT Health baseline"],
+                        datasets: [
+                            {
+                                label: "Research Share ($M)",
+                                data: [152, 413],
+                                backgroundColor: [palette.blue, palette.orange],
+                                hoverOffset: 6
+                            }
+                        ]
+                    },
+                    options: {
+                        ...baseOptions,
+                        cutout: "62%",
+                        scales: {}
+                    }
+                }
+            };
+
+            canvases.forEach((canvas) => {
+                const cfg = configs[canvas.id];
+                if (!cfg) return;
+                if (isDataPage && window.Chart) {
+                    Chart.defaults.devicePixelRatio = 1;
+                }
+                new Chart(canvas.getContext("2d"), cfg);
+            });
+        };
+
         const ensureChart = () =>
             new Promise((resolve, reject) => {
                 if (window.Chart) return resolve();
@@ -169,100 +285,23 @@
 
         ensureChart()
             .then(() => {
-                const palette = {
-                    orange: getCSSVar("--utsa-orange") || "#f15a22",
-                    blue: getCSSVar("--utsa-blue") || "#0c2340",
-                    frost: "rgba(255,255,255,0.8)",
-                    grid: "rgba(255,255,255,0.12)"
-                };
-
-                const baseOptions = {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: { labels: { color: palette.frost } },
-                        tooltip: { titleColor: "#0c0f18", bodyColor: "#0c0f18", backgroundColor: "#ffffff" }
-                    },
-                    animation: { duration: prefersReducedMotion ? 0 : 650, easing: "easeOutCubic" },
-                    interaction: { mode: "nearest", intersect: false },
-                    scales: {
-                        x: { grid: { color: palette.grid }, ticks: { color: palette.frost } },
-                        y: { grid: { color: palette.grid }, ticks: { color: palette.frost } }
+                if (isDataPage) {
+                    const chartSection = canvases[0]?.closest(".section");
+                    if (chartSection) {
+                        const obs = new IntersectionObserver(
+                            (entries, observer) => {
+                                if (entries.some((e) => e.isIntersecting)) {
+                                    loadCharts();
+                                    observer.disconnect();
+                                }
+                            },
+                            { threshold: 0.25 }
+                        );
+                        obs.observe(chartSection);
+                        return;
                     }
-                };
-
-                const configs = {
-                    researchChart: {
-                        type: "bar",
-                        data: {
-                            labels: ["UTSA (pre)", "UT Health (pre)", "Unified"],
-                            datasets: [
-                                {
-                                    label: "Research Expenditures ($M)",
-                                    data: [152, 413, 486],
-                                    backgroundColor: [palette.blue, palette.orange, "#5fa8e6"],
-                                    borderRadius: 8
-                                }
-                            ]
-                        },
-                        options: {
-                            ...baseOptions,
-                            plugins: { ...baseOptions.plugins, legend: { display: false } }
-                        }
-                    },
-                    workforceChart: {
-                        type: "line",
-                        data: {
-                            labels: ["UTSA", "UT Health", "Unified"],
-                            datasets: [
-                                {
-                                    label: "Employees",
-                                    data: [7000, 8700, 17000],
-                                    borderColor: palette.orange,
-                                    backgroundColor: "rgba(241,90,34,0.25)",
-                                    tension: 0.35,
-                                    borderWidth: 3,
-                                    pointRadius: 4
-                                },
-                                {
-                                    label: "Students",
-                                    data: [34000, 4300, 38300],
-                                    borderColor: palette.blue,
-                                    backgroundColor: "rgba(12,35,64,0.25)",
-                                    tension: 0.35,
-                                    borderWidth: 3,
-                                    pointRadius: 4
-                                }
-                            ]
-                        },
-                        options: baseOptions
-                    },
-                    fundingPie: {
-                        type: "doughnut",
-                        data: {
-                            labels: ["UTSA baseline", "UT Health baseline"],
-                            datasets: [
-                                {
-                                    label: "Research Share ($M)",
-                                    data: [152, 413],
-                                    backgroundColor: [palette.blue, palette.orange],
-                                    hoverOffset: 6
-                                }
-                            ]
-                        },
-                        options: {
-                            ...baseOptions,
-                            cutout: "62%",
-                            scales: {}
-                        }
-                    }
-                };
-
-                canvases.forEach((canvas) => {
-                    const cfg = configs[canvas.id];
-                    if (!cfg) return;
-                    new Chart(canvas.getContext("2d"), cfg);
-                });
+                }
+                loadCharts();
             })
             .catch(() => console.warn("Chart.js failed to load"));
     }
