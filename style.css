@@ -115,9 +115,11 @@ body::before {
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+    display: none;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 4px;
+    gap: 5px;
     cursor: pointer;
 }
 
@@ -237,11 +239,9 @@ body::before {
         display: none;
     }
 
-    .hamburger,
+    .hamburger { display: flex; }
     .mobile-menu,
-    .mobile-menu__overlay {
-        display: block;
-    }
+    .mobile-menu__overlay { display: block; }
 }
 
 /* PAGE HEADER */
