@@ -18,19 +18,27 @@
         btn.innerHTML = "↑";
         document.body.appendChild(btn);
 
-        const toggle = () => {
-            if (window.scrollY > 260) {
-                btn.classList.add("show");
-            } else {
-                btn.classList.remove("show");
-            }
-        };
-
         btn.addEventListener("click", () => {
             window.scrollTo({ top: 0, behavior: "smooth" });
         });
 
-        document.addEventListener("scroll", toggle, { passive: true });
+        let ticking = false;
+        const toggle = () => {
+            const show = window.scrollY > 260;
+            btn.classList.toggle("show", show);
+            ticking = false;
+        };
+
+        document.addEventListener(
+            "scroll",
+            () => {
+                if (!ticking) {
+                    window.requestAnimationFrame(toggle);
+                    ticking = true;
+                }
+            },
+            { passive: true }
+        );
         toggle();
     }
 
@@ -40,6 +48,7 @@
 
         const pageSlug = getSlug(window.location.pathname.split("/").pop());
         const sections = selectAll(".section");
+        let lastActive = pageSlug;
 
         sections.forEach((section, idx) => {
             if (!section.dataset.navSlug) section.dataset.navSlug = pageSlug;
@@ -62,7 +71,10 @@
                     .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
                 if (!visible) return;
                 const slug = visible.target.dataset.navSlug || pageSlug;
-                setActive(slug);
+                if (slug !== lastActive) {
+                    lastActive = slug;
+                    setActive(slug);
+                }
             },
             { threshold: [0.35, 0.6] }
         );
@@ -103,7 +115,7 @@
             const prefix = el.dataset.prefix || "";
             const suffix = el.dataset.suffix || "";
             const decimals = target % 1 !== 0 ? 1 : 0;
-            const duration = 1400 + Math.min(target * 8, 1000);
+            const duration = 1100 + Math.min(target * 6, 700);
             const start = performance.now();
             const easeOut = (t) => 1 - Math.pow(1 - t, 3);
 
@@ -171,6 +183,8 @@
                         legend: { labels: { color: palette.frost } },
                         tooltip: { titleColor: "#0c0f18", bodyColor: "#0c0f18", backgroundColor: "#ffffff" }
                     },
+                    animation: { duration: prefersReducedMotion ? 0 : 650, easing: "easeOutCubic" },
+                    interaction: { mode: "nearest", intersect: false },
                     scales: {
                         x: { grid: { color: palette.grid }, ticks: { color: palette.frost } },
                         y: { grid: { color: palette.grid }, ticks: { color: palette.frost } }
