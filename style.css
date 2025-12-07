@@ -119,8 +119,9 @@ body::before {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 5px;
+    gap: 6px;
     cursor: pointer;
+    line-height: 0;
 }
 
 .hamburger span {
@@ -130,6 +131,11 @@ body::before {
     border-radius: 999px;
     background: #ffffff;
     box-shadow: 0 0 12px rgba(155, 196, 255, 0.35);
+    margin: 0;
+}
+
+.hamburger span + span {
+    margin-top: 0;
 }
 
 .mobile-menu__overlay {
