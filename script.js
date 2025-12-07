@@ -2,6 +2,7 @@
     const select = (q, ctx = document) => ctx.querySelector(q);
     const selectAll = (q, ctx = document) => Array.from(ctx.querySelectorAll(q));
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const isMobile = () => window.matchMedia("(max-width: 640px)").matches;
 
     const getSlug = (href) => {
         if (!href) return "";
@@ -104,6 +105,47 @@
                     const text = item.textContent.toLowerCase();
                     item.style.display = text.includes(term) ? "" : "none";
                 });
+            });
+        });
+    }
+
+    function setupMobileNav() {
+        selectAll(".navbar").forEach((nav) => {
+            const ul = select("ul", nav);
+            if (!ul || nav.querySelector(".nav-toggle")) return;
+
+            const toggle = document.createElement("button");
+            toggle.className = "nav-toggle";
+            toggle.setAttribute("aria-label", "Toggle navigation");
+            toggle.setAttribute("aria-expanded", "false");
+            toggle.innerHTML = "<span></span><span></span><span></span>";
+            nav.insertBefore(toggle, ul);
+
+            const closeNav = () => {
+                nav.classList.remove("nav-open");
+                toggle.setAttribute("aria-expanded", "false");
+            };
+
+            toggle.addEventListener("click", (e) => {
+                e.stopPropagation();
+                const open = nav.classList.toggle("nav-open");
+                toggle.setAttribute("aria-expanded", open ? "true" : "false");
+            });
+
+            ul.addEventListener("click", (e) => {
+                if (isMobile() && e.target.closest("a")) {
+                    closeNav();
+                }
+            });
+
+            document.addEventListener("click", (e) => {
+                if (!nav.contains(e.target) && isMobile()) {
+                    closeNav();
+                }
+            });
+
+            window.addEventListener("resize", () => {
+                if (!isMobile()) closeNav();
             });
         });
     }
@@ -335,6 +377,7 @@
         setupCounters();
         setupCharts();
         setupCollapsibles();
+        setupMobileNav();
     }
 
     document.addEventListener("DOMContentLoaded", init);

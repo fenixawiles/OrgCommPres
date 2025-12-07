@@ -97,6 +97,33 @@ body::before {
     transform: translateY(-2px);
 }
 
+.nav-toggle {
+    display: none;
+    margin-left: 16px;
+    padding: 10px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid var(--border);
+    color: #ffffff;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.nav-toggle span {
+    display: block;
+    width: 18px;
+    height: 2px;
+    background: #ffffff;
+    border-radius: 999px;
+}
+
+.nav-toggle:hover {
+    border-color: rgba(155, 196, 255, 0.5);
+}
+
 /* PAGE HEADER */
 .page-header {
     text-align: center;
@@ -504,17 +531,38 @@ canvas {
 
 @media (max-width: 640px) {
     .navbar {
-        padding: 10px 0;
+        padding: 10px 12px;
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+
+    .nav-toggle {
+        display: inline-flex;
     }
 
     .navbar ul {
-        gap: 10px;
+        display: none;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+        width: 100%;
+        padding: 12px 8px 6px;
+        margin-top: 8px;
+        background: rgba(5, 10, 24, 0.8);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+    }
+
+    .navbar.nav-open ul {
+        display: flex;
     }
 
     .navbar a {
         font-size: 14px;
-        padding: 7px 9px;
+        padding: 9px 12px;
         letter-spacing: 0.01em;
+        width: 100%;
     }
 
     .page-header {
