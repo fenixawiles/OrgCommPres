@@ -120,6 +120,7 @@
             toggle.setAttribute("aria-expanded", "false");
             toggle.innerHTML = "<span></span><span></span><span></span>";
             nav.insertBefore(toggle, ul);
+            nav.classList.add("nav-collapsible", "nav-collapsed");
 
             const closeNav = () => {
                 nav.classList.remove("nav-open");
