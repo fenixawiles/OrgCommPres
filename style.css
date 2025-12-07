@@ -1,0 +1,118 @@
+/* RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* BACKGROUND */
+body {
+    font-family: "Inter", Arial, sans-serif;
+    background: linear-gradient(135deg, #0d1b2a, #1b263b, #0d1b2a);
+    background-size: 300% 300%;
+    animation: bgMove 20s ease infinite;
+    color: #e2e8f0;
+}
+
+@keyframes bgMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* NAVBAR */
+.navbar {
+    width: 100%;
+    position: sticky;
+    top: 0;
+    background: rgba(0,0,0,0.4);
+    backdrop-filter: blur(12px);
+    padding: 14px 0;
+    z-index: 999;
+}
+
+.navbar ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 36px;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: #cbd5e1;
+    font-size: 18px;
+    font-weight: 600;
+    transition: 0.25s;
+}
+
+.navbar a:hover {
+    color: #ffffff;
+}
+
+/* PAGE HEADER */
+.page-header {
+    text-align: center;
+    padding: 80px 20px 40px;
+}
+
+.page-header h1 {
+    font-size: 48px;
+    color: #ffffff;
+}
+
+.page-header p {
+    font-size: 20px;
+    margin-top: 12px;
+    opacity: 0.85;
+}
+
+/* CARD SECTIONS */
+.section {
+    width: 90%;
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 30px 35px;
+    background: rgba(255,255,255,0.07);
+    border-radius: 14px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 18px rgba(0,0,0,0.25);
+    animation: fadeUp 0.7s ease;
+}
+
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.section h2 {
+    margin-bottom: 14px;
+    color: #ffffff;
+    font-size: 28px;
+}
+
+.section p {
+    margin-bottom: 14px;
+    line-height: 1.6;
+    font-size: 18px;
+}
+
+.section ul {
+    margin-left: 22px;
+    line-height: 1.6;
+    font-size: 18px;
+}
+
+/* SOURCES */
+.sources ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.sources li {
+    margin-bottom: 10px;
+}
+
+.sources a {
+    color: #9bc4ff;
+}
