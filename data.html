@@ -2,9 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <meta-name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Data Dashboard | UTSA & UT Health Merger</title>
     <link rel="stylesheet" href="style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js" defer></script>
 </head>
 
 <body>
@@ -25,43 +26,114 @@
     <p>A consolidated numerical profile of the UTSA & UT Health San Antonio Merger</p>
 </header>
 
+<!-- SNAPSHOT -->
+<section class="section" data-nav-slug="economic">
+    <h2>Impact Snapshot</h2>
+    <p>Numbers illustrating the immediate combined strength of the integration.</p>
+
+    <div class="stat-grid">
+        <div class="stat-card">
+            <div class="stat-label">Annual Economic Impact</div>
+            <div class="stat-number" data-target="7" data-prefix="$" data-suffix="B">0</div>
+            <div class="stat-detail">Unified output of UTSA & UT Health</div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-label">Research Expenditures</div>
+            <div class="stat-number" data-target="486" data-suffix="M">0</div>
+            <div class="stat-detail">Annual research expenditures post-merger</div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-label">Patient Visits</div>
+            <div class="stat-number" data-target="2.5" data-suffix="M">0</div>
+            <div class="stat-detail">Across 60 patient care sites</div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-label">Active Clinical Trials</div>
+            <div class="stat-number" data-target="500" data-suffix="+">0</div>
+            <div class="stat-detail">Spanning the clinical enterprise</div>
+        </div>
+    </div>
+</section>
+
+<!-- CHARTS -->
+<section class="section" data-nav-slug="state">
+    <h2>Visualize the Integration</h2>
+    <p>Comparative metrics showing how the merger scales research, workforce, and funding.</p>
+
+    <div class="chart-grid">
+        <div class="chart-card">
+            <div class="chart-title">Annual Research Expenditures ($M)</div>
+            <canvas id="researchChart" data-chart="bar"></canvas>
+        </div>
+
+        <div class="chart-card">
+            <div class="chart-title">Students & Employees (Counts)</div>
+            <canvas id="workforceChart" data-chart="line"></canvas>
+        </div>
+
+        <div class="chart-card">
+            <div class="chart-title">Baseline Research Share</div>
+            <canvas id="fundingPie" data-chart="pie"></canvas>
+        </div>
+    </div>
+</section>
+
 <!-- ECONOMIC & FINANCIAL -->
-<section class="section">
+<section class="section" data-nav-slug="economic" data-collapsible="true">
     <h2>Economic & Financial Data</h2>
 
-    <ul>
-        <li><strong>$7 billion</strong> — Annual economic impact of the unified institution (UTSA & UT Health).</li>
-        <li><strong>$44.1 billion</strong> — Size of San Antonio’s healthcare and biosciences industry.</li>
-        <li><strong>$486 million</strong> — Total annual research expenditures post-merger.</li>
-        <li><strong>$470+ million</strong> — Pre-merger combined research activity (UT System estimates).</li>
-        <li><strong>$471 million</strong> — Cost of UT Health’s Multispecialty & Research Hospital.</li>
-        <li><strong>$413 million</strong> — UT Health San Antonio annual sponsored research awards.</li>
-        <li><strong>$152 million</strong> — UTSA annual R&D expenditures pre-merger.</li>
-        <li><strong>$781 million</strong> — UT Health San Antonio endowment.</li>
-        <li><strong>$300 million</strong> — UTSA endowment.</li>
-        <li><strong>$100 million</strong> — Science One research facility investment.</li>
-    </ul>
+    <div class="collapsible">
+        <button class="collapsible-toggle" type="button">
+            Detailed figures
+            <span aria-hidden="true">▾</span>
+        </button>
+        <div class="collapsible-content">
+            <ul>
+                <li><strong>$7 billion</strong> — Annual economic impact of the unified institution (UTSA & UT Health).</li>
+                <li><strong>$44.1 billion</strong> — Size of San Antonio’s healthcare and biosciences industry.</li>
+                <li><strong>$486 million</strong> — Total annual research expenditures post-merger.</li>
+                <li><strong>$470+ million</strong> — Pre-merger combined research activity (UT System estimates).</li>
+                <li><strong>$471 million</strong> — Cost of UT Health’s Multispecialty & Research Hospital.</li>
+                <li><strong>$413 million</strong> — UT Health San Antonio annual sponsored research awards.</li>
+                <li><strong>$152 million</strong> — UTSA annual R&D expenditures pre-merger.</li>
+                <li><strong>$781 million</strong> — UT Health San Antonio endowment.</li>
+                <li><strong>$300 million</strong> — UTSA endowment.</li>
+                <li><strong>$100 million</strong> — Science One research facility investment.</li>
+            </ul>
+        </div>
+    </div>
 </section>
 
 <!-- WORKFORCE & EMPLOYMENT -->
-<section class="section">
+<section class="section" data-nav-slug="faculty" data-collapsible="true">
     <h2>Workforce & Employment Data</h2>
 
-    <ul>
-        <li><strong>17,000</strong> — Combined faculty and staff employed by UT San Antonio post-merger.</li>
-        <li><strong>8,700</strong> — UT Health San Antonio employees pre-merger.</li>
-        <li><strong>4,000</strong> — UT Health faculty.</li>
-        <li><strong>1,400</strong> — UT Health healthcare providers.</li>
-        <li><strong>7,000</strong> — UTSA employees pre-merger.</li>
-        <li><strong>>500</strong> — Active clinical trials.</li>
-        <li><strong>60</strong> — UT Health patient care sites.</li>
-        <li><strong>32 counties</strong> — UT Health pre-merger service area.</li>
-        <li><strong>38 counties</strong> — South Texas Medical Center regional service area.</li>
-    </ul>
+    <div class="collapsible">
+        <button class="collapsible-toggle" type="button">
+            Workforce totals
+            <span aria-hidden="true">▾</span>
+        </button>
+        <div class="collapsible-content">
+            <ul>
+                <li><strong>17,000</strong> — Combined faculty and staff employed by UT San Antonio post-merger.</li>
+                <li><strong>8,700</strong> — UT Health San Antonio employees pre-merger.</li>
+                <li><strong>4,000</strong> — UT Health faculty.</li>
+                <li><strong>1,400</strong> — UT Health healthcare providers.</li>
+                <li><strong>7,000</strong> — UTSA employees pre-merger.</li>
+                <li><strong>>500</strong> — Active clinical trials.</li>
+                <li><strong>60</strong> — UT Health patient care sites.</li>
+                <li><strong>32 counties</strong> — UT Health pre-merger service area.</li>
+                <li><strong>38 counties</strong> — South Texas Medical Center regional service area.</li>
+            </ul>
+        </div>
+    </div>
 </section>
 
 <!-- HEALTHCARE & CLINICAL METRICS -->
-<section class="section">
+<section class="section" data-nav-slug="city">
     <h2>Healthcare & Clinical Data</h2>
 
     <ul>
@@ -75,7 +147,7 @@
 </section>
 
 <!-- ACADEMIC & STUDENT METRICS -->
-<section class="section">
+<section class="section" data-nav-slug="student">
     <h2>Academic & Student Data</h2>
 
     <ul>
@@ -91,7 +163,7 @@
 </section>
 
 <!-- REGIONAL & DEMOGRAPHIC METRICS -->
-<section class="section">
+<section class="section" data-nav-slug="state">
     <h2>Regional & Demographic Data</h2>
 
     <ul>
@@ -129,4 +201,5 @@
 </section>
 
 </body>
+<script src="script.js" defer></script>
 </html>
